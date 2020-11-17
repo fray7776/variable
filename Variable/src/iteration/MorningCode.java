@@ -5,10 +5,10 @@ public class MorningCode {
 	public static void main(String[] args) {
 		int sum7 = 7;
 		int sum8 = 8;
-		for (int i = 8; i <= 50; i++)
+		for (int i = 7; i <= 50; i++)
 			if (sum7 % 7 == 0) {
 				sum7 += i;
-				System.out.println(sum7);
+				System.out.println(sum7 +=i);
 
 			} else if (sum8 % 8 == 0) {
 				sum8 += i;
