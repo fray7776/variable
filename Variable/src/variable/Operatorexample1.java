@@ -1,3 +1,4 @@
+package variable;
 
 public class Operatorexample1 {
 	// str +는 누적시켜서 값을 도출

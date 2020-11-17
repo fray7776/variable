@@ -1,3 +1,4 @@
+package variable;
 
 public class Exercise04 {
 //문장정렬 : ctrl +shft +f
