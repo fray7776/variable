@@ -11,14 +11,13 @@ public class ArrayExample44 {
 		System.out.println(intAry[0][0]);
 
 		System.out.println(intAry[0].length); // 크기는 첫번째의 첫번째??
- 
-		for(int i = 0; i<intAry.length; i++) {
-			for(int j=0; j<intAry.length; i++) {
-				System.out.println("intAry["+i+","+ j +"] >"+intAry[i][j]);
+
+		for (int i = 0; i < intAry.length; i++) {
+			for (int j = 0; j < intAry.length; i++) {
+				System.out.println("intAry[" + i + "," + j + "] >" + intAry[i][j]);
 			}
 		}
-		int[][] intAry2 = 
-			  { { 11, 12, 13 }, // 열 3
+		int[][] intAry2 = { { 11, 12, 13 }, // 열 3
 				{ 21 }, // 열 1
 				{ 31, 32 } // 열 2
 		};
@@ -27,5 +26,12 @@ public class ArrayExample44 {
 		// intAry2[0] => 합 : ??, 평균 : ?? 입니다.
 		// intAry2[1] => 합 : ??, 평균 : ?? 입니다.
 		// intAry2[2] => 합 : ??, 평균 : ?? 입니다.
+		int sum = 0;
+		for (int i = 0; i < intAry2[i].length; i++) {
+			for (int j = 0; j < intAry2[j].length; j++) {
+				sum += intAry2[i][j];
+			}
+			System.out.println("첫번째 배열의 결과값은 " + sum);
+		}
 	}
 }
