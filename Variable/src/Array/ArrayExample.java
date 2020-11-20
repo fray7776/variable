@@ -9,7 +9,6 @@ public class ArrayExample {
 		int[] numbers = { 10, 20, 30, 40, 50 }; // int[]는 int형 타입의 변수를 여러개 담을 수 있다.
 		numbers[1] = 200; // 두번째 값에 200을 넣는다. 두번째 값이 20에서 200으로 된다.
 		System.out.println(numbers[2]); // number값의 첫번째 값을 가져오시오 > 0은 첫번째 위치값 = 10
-
 		int sum = 0;
 
 		for (int i = 0; i < 5; i++) {
