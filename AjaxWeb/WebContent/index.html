@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>welcome</title>
+</head>
+<body>
+<div id="show"></div>
+   <h1>HELLO!</h1>
+   <script>
+   let xhtp = new XMLHttpRequest();
+   xhtp.open('get','home');
+   xhtp.send();
+   xhtp.onload = showContent;
+	   function showContent() {
+		   console.log(xhtp.responseXML);
+		   let doc= xhtp.responseXML;
+		   let result = doc.getElementsByTagName('record'); 
+		   let t = document.createElement('table');
+	       t.setAttribute('border', '1');
+	       
+	       let tr = document.createElement('tr');
+	       for(let j=0; j<result[0].childNodes.length;j++) {
+	           let th=document.createElement('th');
+	           let str1=result[0].childNodes[j].nodeName.toUpperCase().replace('_',' ');
+	           let textNode1 = document.createTextNode(str1);
+	           th.appendChild(textNode1);
+	           tr.appendChild(th);
+	        
+	       for (let i = 0; i < result[j].childNodes.length; i++) {
+	    	   let tr = document.createElement('tr');
+	           let td = document.createElement('td');
+	           let str = result[j].childNodes[i].childNodes[0].nodeValue
+	           let textNode = document.createTextNode(str);
+	           td.appendChild(textNode);
+	           tr.appendChild(td);
+	           
+	       }
+	       t.append(tr);
+	   }
+	       show.appendChild(t);
+	   }
+	     
+	   
+	  
+   
+   </script>
+</body>
+</html>

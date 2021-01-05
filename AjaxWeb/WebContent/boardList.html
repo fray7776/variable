@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>III HAATTEE JJAAVVAA</title>
+</head>
+<body>
+ <!-- 화면에 게시판 데이터 table형식으로 화면에 보여주도록????? -->
+ <!-- DAO에 list조회해오는 method있어야함, Servlet도 있어야함, servlet으로 ajax호출(XMLHttpRequest()) -->
+<div id="show"></div>
+<form name='f' action='insertBoard' method="GET">
+<label for="title">제목:</label>
+<input type="text" name="title"><br>
+<label for="content">내용:</label>
+<input type="text" id='content' name="content"><br>
+<label for="writer">작성자:</label>
+<input type="text" id='writer' name="writer"><br>
+<input type="button" id='b' value="SAVE">
+<input type="reset" value="CANCLE">
+</form>
+<script>
+  document.getElementById('b').onclick=function() {
+	  let t = document.createElement('table');
+	  t.setAttribute('border', '1');
+	  let tr = document.createElement('tr');
+	  for(let i=0; i<=10; i++){
+		  let td= document.createElement('td');
+	      let title= document.querySelectorAll('input[name="title"]')[0].value
+          td.append(title);
+	      tr.append(td);
+	      let content = document.getElementById('content').value;
+	      td.append(title);
+	      tr.append(td);
+	      let writer = document.getElementById('writer').value;
+	      td.append(title);
+	      tr.append(td);
+		  t.append(tr);
+	  }
+	  show.append(t);
+	  
+	  let xhtp= new XMLHttpRequest();
+	  let url='InsertBoard?title='+title+'&content='+content+'&writer='+writer;
+	  
+	  xhtp.open('get',url);
+		xhtp.send();
+		xhtp.onload = function() {
+			console.log(xhtp.responseText);
+  }
+  }
+
+</script>
+</body>
+</html>
