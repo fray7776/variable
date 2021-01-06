@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="showPage.js"></script>
+</head>
+<body>
+	<div id="show"></div>
+	<script>
+		let xhtp = new XMLHttpRequest();
+		xhtp.open('get','../home'); //이 파일이 html 하위폴더에 있으니까 home으로 가려면 경로를 맞춰줘야함
+		xhtp.send();
+		xhtp.onload = showPage;
+		
+	</script>
+	
+</body>
+</html>
