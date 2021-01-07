@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<script src="showPage2.js"></script>
+</head>
+
+<body>
+	<table>
+		<input type='text' id='eid' name='999'>
+		<tr>
+			<td>first Name</td>
+			<td><input type="text" id='fName' value='a' name='fName'></td>
+		</tr>
+		<tr>
+			<td>last Name</td>
+			<td><input type="text" id='lName' value='a' name='lName'></td>
+		</tr>
+		<tr>
+			<td>Email</td>
+			<td><input type="text" id='email' value='a' name='email'></td>
+		</tr>
+		<tr>
+			<td>phone Number</td>
+			<td><input type="text" id='phone' value='a' name='phone'></td>
+		</tr>
+		<tr>
+			<td>job Id</td>
+			<td><input type="text" id='jobId' value='a' name='jobId'></td>
+		</tr>
+		<tr>
+			<td>salary</td>
+			<td><input type="text" id='salary' value='10' name='salary'></td>
+		</tr>
+		<tr>
+			<td><button id='btn' onclick='saveBtn()'>SAVE</button></td>
+		</tr>
+		<tr>
+			<td><button id='btn' onclick='updateBtn()'>UPDATE</button></td>
+		</tr>
+
+	</table>
+
+	<div id="show"></div>
+	<script>
+		function saveBtn() {
+			console.log(this);
+			let fName = document.getElementById('fName').value;
+			let lName = document.getElementById('lName').value;
+			let email = document.getElementById('email').value;
+			let phone = document.getElementById('phone').value;
+			let jobId = document.getElementById('jobId').value;
+			let salary = document.getElementById('salary').value;
+
+			let url = '../addEmp?fName=' + fName + '&lName=' + lName + '&email=' + email + '&phone=' + phone + '&jobId=' + jobId + '&salary=' + salary;
+			let saveReq = new XMLHttpRequest();
+			saveReq.open('get', url); //경로는 insert하는 survlet쓰면됨(/addEmp이지만 너무 길어서 url로 빼준다.)
+			saveReq.send();
+			let doc = null;
+			saveReq.onload = function () {
+				console.log(saveReq.responseXML);
+				doc = saveReq.responseXML;
+				let result = doc.getElementsByTagName('result'); //result태그를 기준으로 하위요소를 다 가지고옴
+				console.log(result);
+				//화면구성(저장누르면 화면이 보이게!) tr, td*6(button) => tbl.appendChild(tr);
+				let tr = document.createElement('tr');
+				for (let i = 0; i < result[0].childNodes.length; i++) {
+					let td = document.createElement('td');
+					let val = result[0].childNodes[i].firstChild.nodeValue;
+					let tNode = document.createTextNode(val);
+					td.appendChild(tNode);
+					tr.appendChild(td);
+
+				}
+				let td = document.createElement('td');
+				tr.appendChild(btnFunc(td, del));
+				document.getElementById('tbl').appendChild(tr);
+	
+					
+				//button function
+				function btnFunc(td, callBackFunc) {
+					let btn = document.createElement('button');
+					btn.onclick = callBackFunc;
+					btn.innerHTML = 'DELETE';
+					td.appendChild(btn);
+
+					return td;
+
+				}	
+				//delete function
+				
+				function del() {
+					this.parentNode.parentNode.remove();
+					let dd=this.parentNode.parentNode.childNodes[0].firstChild.nodeValue; //sql에서 id를 지우기위해
+					let req=new XMLHttpRequest();
+					req.open('get','../DeleteEmpServ?empId='+dd);
+					req.send();
+					req.onload=function() {
+						//console.log(req.responseText);
+						
+					};
+					
+				//mouseonclick function
+				
+					td.onclick = function(result) {
+						let val=this.parentNode.childNodes[0].firstChild.nodeValue;
+						val.fName = this.parentNode.childNodes[1].firstChild.nodeValue
+						val.lName = this.parentNode.childNodes[2].firstChild.nodeValue
+						val.email = this.parentNode.childNodes[3].firstChild.nodeValue
+						val.phone = this.parentNode.childNodes[4].firstChild.nodeValue
+						val.jobId = this.parentNode.childNodes[6].firstChild.nodeValue
+						val.salary = this.parentNode.childNodes[7].firstChild.nodeValue
+						let input1 = tbl.getElementsByTagName('input');
+						td.append(input1);
+						tr.append(td);
+						
+						
+						//console.log(this.parentNode.childNodes[7].firstChild.nodeValue); id값
+					}
+				
+				}
+				
+				
+			}
+
+			
+		}
+		//전체리스트 보여주는 페이지
+		let xhtp = new XMLHttpRequest();
+		//이 파일이 html 하위폴더에 있으니까 home으로 가려면 경로를 맞춰줘야함
+		xhtp.open('get', '../home');
+		xhtp.send();
+		xhtp.onload = showPage2;
+
+	</script>
+
+</body>
+
+</html>

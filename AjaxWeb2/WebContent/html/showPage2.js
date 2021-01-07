@@ -69,6 +69,9 @@ function contentRow(result) {
 	for (let j = 0; j < result.length; j++) {
 		let trTag = document.createElement('tr');
 		
+		let empId=result[j].childNodes[0].firstChild.nodeValue;
+		trTag.setAttribute('id','emp_'+empId);
+		
 		trTag.onmouseover = function() {
 			this.style.background = 'purple';
 		}
