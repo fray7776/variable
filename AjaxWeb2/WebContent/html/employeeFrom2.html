@@ -9,7 +9,7 @@
 
 <body>
 	<table>
-		<input type='text' id='eid' name='999'>
+		<input type='text' id='eid' name='999' value=999>
 		<tr>
 			<td>first Name</td>
 			<td><input type="text" id='fName' value='a' name='fName'></td>
@@ -37,9 +37,11 @@
 		<tr>
 			<td><button id='btn' onclick='saveBtn()'>SAVE</button></td>
 		</tr>
+		
 		<tr>
-			<td><button id='btn' onclick='updateBtn()'>UPDATE</button></td>
+			<td><button id='upBtn' onclick='upBtnFunc()'>UPDATE</button></td>
 		</tr>
+		
 
 	</table>
 
@@ -61,7 +63,7 @@
 			let doc = null;
 			saveReq.onload = function () {
 				console.log(saveReq.responseXML);
-				doc = saveReq.responseXML;
+ 				doc = saveReq.responseXML;
 				let result = doc.getElementsByTagName('result'); //result태그를 기준으로 하위요소를 다 가지고옴
 				console.log(result);
 				//화면구성(저장누르면 화면이 보이게!) tr, td*6(button) => tbl.appendChild(tr);
@@ -79,7 +81,7 @@
 				document.getElementById('tbl').appendChild(tr);
 	
 					
-				//button function
+				//DELETE button function
 				function btnFunc(td, callBackFunc) {
 					let btn = document.createElement('button');
 					btn.onclick = callBackFunc;
@@ -102,24 +104,37 @@
 						
 					};
 					
-				//mouseonclick function
+				}
 				
-					td.onclick = function(result) {
-						let val=this.parentNode.childNodes[0].firstChild.nodeValue;
-						val.fName = this.parentNode.childNodes[1].firstChild.nodeValue
-						val.lName = this.parentNode.childNodes[2].firstChild.nodeValue
-						val.email = this.parentNode.childNodes[3].firstChild.nodeValue
-						val.phone = this.parentNode.childNodes[4].firstChild.nodeValue
-						val.jobId = this.parentNode.childNodes[6].firstChild.nodeValue
-						val.salary = this.parentNode.childNodes[7].firstChild.nodeValue
-						let input1 = tbl.getElementsByTagName('input');
-						td.append(input1);
-						tr.append(td);
-						
-						
-						//console.log(this.parentNode.childNodes[7].firstChild.nodeValue); id값
+				//UPDATE button function
+				function upBtnFunc() {
+					let fName = document.getElementById('fName').value;
+					let lName = document.getElementById('lName').value;
+					let email = document.getElementById('email').value;
+					let phone = document.getElementById('phone').value;
+					let jobId = document.getElementById('jobId').value;
+					let salary = document.getElementById('salary').value;
+
+					let url = '../UpdateServlet?fName=' + fName + '&lName=' + lName + '&email=' + email + '&phone=' + phone + '&jobId=' + jobId + '&salary=' + salary;
+					let upReq = new XMLHttpRequest();
+					upReq.open('get', url);
+					upReq.send();
+					let doc = null;
+					
+					upReq.onload = function () {
+						doc = upReq.responseXML;
+						let result = doc.getElementsByTagName('result');
+						console.log(result);
+				
+				}
+				
+				//update function
+				
+				function update1() {
+					console.log(this);
+					
 					}
-				
+					
 				}
 				
 				

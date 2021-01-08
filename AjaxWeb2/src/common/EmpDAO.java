@@ -88,6 +88,7 @@ public class EmpDAO {
 				}
 		return newVo;
 	}
+	//delete
 	public boolean deleteEmp(EmployeeVO vo) {
 		String sql="delete from emp_temp where employee_id= ?";
 		int r=0;
@@ -104,6 +105,7 @@ public class EmpDAO {
 		return r == 1? true : false;
 	}
 	
+	//list
 	public List<EmployeeVO> getEmpList() {
 		String sql = "select* from emp_temp order by 1 desc";
 		List<EmployeeVO> list = new ArrayList<>();
@@ -136,5 +138,26 @@ public class EmpDAO {
 		
 		return list;
 	}//end of getEmpList()
+	
+	//update
+	public EmployeeVO updateEmp(EmployeeVO vo) {
+		String sql = "update emp_temp set first_name=?, last_name=?,email=?,phone_number=?,job_id=?,salary=?";
+		EmployeeVO newVo = new EmployeeVO();
+		int rs=0;
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			rs = psmt.executeUpdate(sql);
+			System.out.println(rs +"건이 수정됨");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}try {
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return newVo;
+		
+		
+	}
 	
 }

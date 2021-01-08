@@ -15,6 +15,7 @@ function showPage2() {
 	//data tr => [배열]을 사용
 	let headerTr = titleRow(data);
 	let dataTrs = contentRow(data);
+	
 	tableTag.appendChild(headerTr);
 	for (let i = 0; i < dataTrs.length; i++) {
 		tableTag.appendChild(addBtn(dataTrs[i], delFunc)); //delFunc을 담고있는 버튼을 추가해준다.(addBtn)
@@ -27,11 +28,14 @@ function delFunc() {
 	let id = this.parentNode.parentNode.childNodes[0].firstChild.nodeValue;
 	/*let id = this.parentNode.parentNode;
 	console.log(this.parentNode.parentNode)*/
-	let req = new XMLHttpRequest();
-	req.open('get', '../DeleteEmpServ?empId=' + id);
-			req.send();
-			req.onload = function() {
-				console.log(req.responseText);
+	let delReq = new XMLHttpRequest();
+	delReq.open("post", "../DeleteEmpServ");
+	delReq.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			let data='';
+			data += 'empId='+id;
+			delReq.send(data);
+			delReq.onload = function() {
+				console.log(delReq.responseText);
 			
 }
 }
@@ -69,6 +73,18 @@ function contentRow(result) {
 	for (let j = 0; j < result.length; j++) {
 		let trTag = document.createElement('tr');
 		
+		trTag.onclick = function() {
+						document.getElementById('eid').value=this.childNodes[0].firstChild.nodeValue;
+						document.getElementById('fName').value=this.childNodes[1].firstChild.nodeValue;
+						document.getElementById('lName').value=this.childNodes[2].firstChild.nodeValue;
+						document.getElementById('email').value=this.childNodes[3].firstChild.nodeValue;
+						document.getElementById('phone').value=this.childNodes[4].firstChild.nodeValue;
+						document.getElementById('jobId').value=this.childNodes[5].firstChild.nodeValue;
+						document.getElementById('salary').value=this.childNodes[7].firstChild.nodeValue;
+						
+					}
+					
+					
 		let empId=result[j].childNodes[0].firstChild.nodeValue;
 		trTag.setAttribute('id','emp_'+empId);
 		
@@ -78,13 +94,16 @@ function contentRow(result) {
 		trTag.onmouseout = function() {
 			this.style.background = 'none';
 		}
+		
 
 		for (let i = 0; i < result[j].childNodes.length; i++) {
 			let tdTag = document.createElement('td');
 			let textNode = document.createTextNode(result[j].childNodes[i].firstChild.nodeValue);
 			tdTag.appendChild(textNode);
+			
 			trTag.appendChild(tdTag);
 		}
+		
 		
 		trTags.push(trTag);
 	}
