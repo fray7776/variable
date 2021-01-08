@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>html/ajaxJason.html</title>
+</head>
+<body>
+    <script>
+    	let json = {
+    			"name" :"John",
+    			"age" : 30,
+    			"cars" : ["Ford","BMW","Fiat"]
+    	}
+    	
+    	console.log(json.cars[0]);
+    	
+        let xhtp =new XMLHttpRequest();
+        xhtp.open('get','../empListJson'); //서버의 mock파일을 요청(요청은 send가!)-->emplistjson 요청으로 바꿈
+        xhtp.send();
+        xhtp.onload = function() {
+            let data = xhtp.response; //xhtp.response라고 하면 mock_data를 보여준다.
+            let obj = JSON.parse(data); //json을 object(배열)로 바꿔준다.
+            console.log(JSON.parse(data)); 
+            for(let i=0; i<obj.length; i++) {
+                console.log(obj[i].id, obj[i].firstName,obj[i].lastName);
+            }
+        }
+    </script>
+</body>
+</html>

@@ -47,6 +47,36 @@
 
 	<div id="show"></div>
 	<script>
+	//UPDATE button function
+	function upBtnFunc() {
+		let fName = document.getElementById('fName').value;
+		let lName = document.getElementById('lName').value;
+		let email = document.getElementById('email').value;
+		let phone = document.getElementById('phone').value;
+		let jobId = document.getElementById('jobId').value;
+		let salary = document.getElementById('salary').value;
+
+		let url = '../UpdateServlet?fName=' + fName + '&lName=' + lName + '&email=' + email + '&phone=' + phone + '&jobId=' + jobId + '&salary=' + salary;
+		let upReq = new XMLHttpRequest();
+		upReq.open('get', url);
+		upReq.send();
+		let doc = null;
+		
+		upReq.onload = function () {
+			doc = upReq.responseXML;
+			let result = doc.getElementsByTagName('result');
+			console.log(result);
+	
+	}
+	
+	//update function
+	
+	function update1() {
+		console.log(this);
+		
+		}
+		
+	}
 		function saveBtn() {
 			console.log(this);
 			let fName = document.getElementById('fName').value;
@@ -106,36 +136,7 @@
 					
 				}
 				
-				//UPDATE button function
-				function upBtnFunc() {
-					let fName = document.getElementById('fName').value;
-					let lName = document.getElementById('lName').value;
-					let email = document.getElementById('email').value;
-					let phone = document.getElementById('phone').value;
-					let jobId = document.getElementById('jobId').value;
-					let salary = document.getElementById('salary').value;
-
-					let url = '../UpdateServlet?fName=' + fName + '&lName=' + lName + '&email=' + email + '&phone=' + phone + '&jobId=' + jobId + '&salary=' + salary;
-					let upReq = new XMLHttpRequest();
-					upReq.open('get', url);
-					upReq.send();
-					let doc = null;
-					
-					upReq.onload = function () {
-						doc = upReq.responseXML;
-						let result = doc.getElementsByTagName('result');
-						console.log(result);
 				
-				}
-				
-				//update function
-				
-				function update1() {
-					console.log(this);
-					
-					}
-					
-				}
 				
 				
 			}

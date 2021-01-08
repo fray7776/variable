@@ -1,0 +1,1 @@
+$('#food_1 li:first').html();
