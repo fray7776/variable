@@ -4,10 +4,64 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src = '../js/jquery-3.5.1.min.js'></script>
-<script src="js/jquery.js"></script>
+
 <script>
-    $(function(){
-        $("*").css("border","5px solid blue");
+    let persons = [];
+    persons.push('Song');
+    persons.push('Park');
+    persons.push('Jang');
+
+    $(document).ready(function(){
+        let ulTag=$('<ul />').attr('id','main');
+        $.each(persons,function(a,b){
+            console.log(a,b);
+            ulTag.append($('<li />').html(b));
+        });
+        console.log(ulTag);
+        $('body').append(ulTag);
+        
+        let t = $('<table />').attr('border','1');
+        
+        $.each(persons, function(a,b){
+            console.log(a,b);
+            let tr=$('<tr />');
+            $(tr).mouseover(function(){
+                let td=$('<td />');
+                console.log($(this));
+                $(this).css('background-color','purple');
+
+           $(tr).mouseout(function(){
+               $(this).css('background-color','yellow');
+            });
+            td=$('<td />').html(b);
+            tr.append(td);
+            t.append(tr);
+
+            let td1=$('<td />').html(b);
+            let btn = $('<button />').html('OK');
+            $(btn).click(function(){
+                td1.append(btn);
+                alert('warning!!!');
+            });
+            tr.append(td);
+            t.append(tr);
+            });
+
+            
+            let btn1=$('<button />').html('REMOVE');
+            let td2=$('<td />').append(btn1);
+            $(btn1).click(function(a,b){
+                tr.remove();
+                alert('removed!!!');
+            })
+            td2.append(btn1);
+            tr.append(td);
+            t.append(tr);
+
+        });
+        console.log(t);
+        $('body').append(t);
+        
     });
 </script>
 </head>
