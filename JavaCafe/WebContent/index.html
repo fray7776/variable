@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Index.html</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(function(){
+		$.ajax({
+			url:'GetEmpList', //경로가 index.html이니까 상위에 안가도됨
+			type: 'get',
+			dataType: 'json',
+			success: function(result){
+				//console.log(result) //결과값
+				let data= result;
+				let firstNames = $(data).map(function(i,o){
+					return o.firstName; //getEmplist에서 쓴 값과 같아야 함.
+				}).get(                                                                                                                                                                                                                                                                                                                                         );
+				let grepNames=$.grep(firstNames,function(o, i){
+					return o.length > 5;
+				}, true); //false이면 return을 만족하는 값을 가지고 오고 true이면 반대값을 가져온다.
+				console.log(grepNames);
+			},
+			error: function(result){
+				console.log(result)
+			}
+			 
+		});
+	});
+</script>
+</head>
+<body>
+
+</body>
+</html>

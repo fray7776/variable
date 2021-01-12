@@ -38,8 +38,9 @@ function showContent(result) {
     $(data).each(function (idx, obj) {
         if (idx < 5) {
             let tr = $('<tr />');
+            
             $(tr).attr('id', obj.id);
-
+            console.log(obj)
             $(tr).on({
                 'mouseover': function () {
                     $(this).css('background-color', 'yellow')
@@ -50,6 +51,7 @@ function showContent(result) {
             });
 
             for (field of headers) {
+                console.log(field+val);
                 let td = $('<td />');
                 if (field == 'chkbox') {  //field값이 chkbox를 만나면...
                     let checkbox = $('<input />').attr('type', 'checkbox');
