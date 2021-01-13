@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class EmpDAO {
 	Connection conn = null;
@@ -32,6 +34,84 @@ public class EmpDAO {
 	
 
 }
+	//insert 처리 메소드 만들기
+	public void insertSchedule(Schedule sch) {
+		String sql="insert into calendar values(?,?,?,?)";
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			psmt.setString(1, sch.getTitle());
+			psmt.setString(2, sch.getStartData());
+			psmt.setString(3, sch.getEndData());
+			psmt.setString(4, sch.getUrl());
+			int r = psmt.executeUpdate();
+			System.out.println( r + "건 입력되었습니다.");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	//달력만들기
+	public List<Schedule> getScheduleList() {
+		String sql = "select* from calendar";
+		List<Schedule> list = new ArrayList<>();
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			ResultSet rs=psmt.executeQuery();
+			while(rs.next()) {
+				Schedule schdule = new Schedule();
+				schdule.setTitle(rs.getString("title"));
+				schdule.setStartData(rs.getString("start_data"));
+				schdule.setEndData(rs.getString("end_data"));
+				schdule.setUrl(rs.getString("url"));
+				
+				list.add(schdule);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+		
+	}
+	
+	
+	public Map<String, Integer> getMemberByDept() {
+		String sql = "select department_name, count(*) "
+				+ "from employees e, departments d "
+				+ "where e.department_id=d.department_id "
+				+ "group by department_name";
+		
+		Map<String, Integer> map = new HashMap<>();
+		try {
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			ResultSet rs = psmt.executeQuery();
+			while(rs.next()) {
+				map.put(rs.getString(1), rs.getInt(2));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return map;
+	}
+	
+	
 	//INSERT
 	
 	public EmployeeVO insertEmp(EmployeeVO vo) {

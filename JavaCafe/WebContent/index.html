@@ -11,7 +11,7 @@
 			type: 'get',
 			dataType: 'json',
 			success: function(result){
-				//console.log(result) //결과값
+				console.log(result) //결과값
 				let data= result;
 				let firstNames = $(data).map(function(i,o){
 					return o.firstName; //getEmplist에서 쓴 값과 같아야 함.
